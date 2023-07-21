@@ -54,7 +54,10 @@ metmastdt <- setDT(metmast) |>
 metmastdt[, dateorig := date]
 
 gpsdt <- setDT(gps) |>
-  dplyr::select(date = timestamp, fligthdir = heading, fligthspeed = ground_speed)
+  dplyr::select(date = timestamp, flightdir = heading, flightspeed = ground_speed)
 
 # Join with roll ----
-metmastdt[gpsdt, on = .(date), roll = TRUE]
+joindt <- metmastdt[gpsdt, on = .(date), roll = TRUE]
+
+
+knitr::kable(joindt[1:10, ], format = "pipe", padding = 1)
